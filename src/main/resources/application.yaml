@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: elastic-search
+  elasticsearch:
+    uris: http://localhost:9200
+logging:
+  level:
+    org.elasticsearch.client: trace

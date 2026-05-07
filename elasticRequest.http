@@ -1,0 +1,94 @@
+### Create User - 활성 사용자
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "id": "user-001",
+  "name": "홍길동",
+  "age": 30,
+  "isActive": true
+}
+
+### Create User - 비활성 사용자
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "id": "user-002",
+  "name": "김철수",
+  "age": 25,
+  "isActive": false
+}
+
+### Create User - 다른 사용자
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "id": "user-003",
+  "name": "이영희",
+  "age": 28,
+  "isActive": true
+}
+
+
+### [Elasticsearch 직접 조회] 클러스터 상태 확인
+GET http://localhost:9200/_cluster/health
+
+### [Elasticsearch 직접 조회] 인덱스 목록
+GET http://localhost:9200/_cat/indices?v
+
+### [Elasticsearch 직접 조회] users 인덱스 매핑 확인
+GET http://localhost:9200/users/_mapping
+
+### [Elasticsearch 직접 조회] 전체 사용자 검색
+GET http://localhost:9200/users/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+### [Elasticsearch 직접 조회] 특정 ID 조회
+GET http://localhost:9200/users/_doc/user-001
+
+### [Elasticsearch 직접 조회] 이름으로 검색
+GET http://localhost:9200/users/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "match": {
+      "name": "홍길동"
+    }
+  }
+}
+
+### [Elasticsearch 직접 조회] 활성 사용자만 검색
+GET http://localhost:9200/users/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "term": {
+      "isActive": true
+    }
+  }
+}
+
+### [Elasticsearch 직접 조회] 나이 범위 검색
+GET http://localhost:9200/users/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "range": {
+      "age": {
+        "gte": 20,
+        "lte": 30
+      }
+    }
+  }
+}
